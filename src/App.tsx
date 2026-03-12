@@ -1,33 +1,47 @@
-import type { Movie } from "./types/Movie";
-import type { Genre } from "./types/Genre";
-import {useEffect, useState} from "react";
-import {MovieCard} from "./components/MovieCard";
-
+import { usePopularMovies } from "./hooks/usePopularMovies";
+import { useGenres } from "./hooks/useGenres";
+import { MovieList } from "./components/MovieList";
+import { useMovieSearch } from "./hooks/useMovieSearch";
+import {useState} from "react";
 
 function App() {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [genres, setGenres] = useState<Genre[]>([]);
+    const [query, setQuery] = useState('');
+    const [searched, setSearched] = useState(false);
 
-    useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=ru-RU`)
-            .then(response => response.json())
-            .then(data => setMovies(data.results))
-    }, [])
+    const { movies, loading, error } = usePopularMovies();
+    const { genres } = useGenres();
+    const {foundMovies , loading: isSearching, error: searchError, search } = useMovieSearch()
 
-    useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=ru-RU`)
-        .then(response => response.json())
-        .then(data => setGenres(data.genres))
-    }, []);
+    if (loading) return <p>Загрузка...</p>;
+    if (error) return <p>Ошибка: {error}</p>;
+
+    if (isSearching) return <p>Поиск фильма...</p>;
+    if (searchError) return <p>Ошибка поиска: {searchError}</p>;
+
+    const handleSearch = async () => {
+        setSearched(true);
+       await search(query)
+    }
 
     return (
         <div>
             <h1>Movie Explorer</h1>
-            <ul>
-                {movies.map(movie => (
-                    <MovieCard key={movie.id} movie={movie} genres={genres}></MovieCard>
-                ))}
-            </ul>
+            <input
+                type="text"
+                placeholder="Введите название фильма"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+            />
+            <button onClick={handleSearch}>Поиск</button>
+            {searched ? (
+                foundMovies.length > 0 ? (
+                    <MovieList movies={foundMovies} genres={genres} />
+                ) : (
+                    <p>Такого фильма нет</p>
+                )
+            ) : (
+                <MovieList movies={movies} genres={genres} />
+            )}
         </div>
     );
 }
