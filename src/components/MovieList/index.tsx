@@ -1,6 +1,7 @@
 import { MovieCard } from "../MovieCard";
 import type { Movie } from "../../types/Movie";
 import type { Genre } from "../../types/Genre";
+import {Link} from "react-router-dom";
 
 interface MovieListProps {
     movies: Movie[];
@@ -11,7 +12,9 @@ export const MovieList = ({ movies, genres }: MovieListProps) => {
     return (
         <ul>
             {movies.map(movie => (
-                <MovieCard key={movie.id} movie={movie} genres={genres} />
+                <Link to={`/movie/${movie.id}`}>
+                    <MovieCard key={movie.id} movie={movie} genres={genres} />
+                </Link>
             ))}
         </ul>
     );
