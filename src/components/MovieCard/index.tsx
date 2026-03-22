@@ -1,12 +1,10 @@
 import type {Movie} from "../../types/Movie";
-import type {Genre} from "../../types/Genre";
 
 interface MovieCardProps {
     movie: Movie;
-    genres: Genre[];
 }
 
-export const MovieCard =( {movie,genres }: MovieCardProps) => {
+export const MovieCard =( {movie}: MovieCardProps) => {
 
     const posterUrl = movie.poster_path
         ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
@@ -14,10 +12,7 @@ export const MovieCard =( {movie,genres }: MovieCardProps) => {
 
     const year = movie.release_date?.slice(0, 4);
 
-    const genreNames = movie.genre_ids
-        .map(id => genres.find(genre => genre.id === id)?.name)
-        .filter(Boolean)
-        .join(', ');
+    const genreNames = movie.genres?.map(genre => genre.name).join(', ') || '';
 
     return (
         <div>
@@ -32,8 +27,8 @@ export const MovieCard =( {movie,genres }: MovieCardProps) => {
                 )
             }
             {year && <p>Год: {year}</p>}
-            {genreNames && <p>Жанры: {genreNames}</p>}
             <p>Рейтинг: {movie.vote_average}</p>
+            {genreNames && <p>Жанры: {genreNames}</p>}
             <h6>{movie.overview}</h6>
         </div>
     );
