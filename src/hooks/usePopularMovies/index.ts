@@ -7,14 +7,17 @@ export const usePopularMovies = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const moviesResponse = await getPopularMovies();
+                setLoading(true);
+                const {results, totalPages: total} = await getPopularMovies(page);
                 const genresResponse = await getGenres();
 
-                const moviesWithGenres = moviesResponse.map((movie: Movie) => ({
+                const moviesWithGenres = results.map((movie: Movie) => ({
                     ...movie,
                     genres: movie.genre_ids?.map((id: number) => {
                         const genre = genresResponse.find((g: Genre) => g.id === id);
@@ -23,14 +26,18 @@ export const usePopularMovies = () => {
                 }));
 
                 setMovies(moviesWithGenres);
+                setTotalPages(total);
+
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'Произошла ошибка');
             } finally {
                 setLoading(false);
             }
         };
-        fetchData().catch(console.error);
-    }, []);
 
-    return { movies, loading, error };
+        fetchData().catch(console.error);
+    }, [page]);
+
+
+    return { movies, loading, error, page, totalPages, setPage };
 };

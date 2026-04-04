@@ -1,12 +1,12 @@
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export const getPopularMovies = async () => {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ru-RU`);
+export const getPopularMovies = async (page:number) => {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ru-RU&page=${page}`);
     if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
     }
     const data = await response.json();
-    return data.results;
+    return { results: data.results, totalPages: data.total_pages };
 };
 
 export const getGenres = async () => {
