@@ -1,14 +1,29 @@
-import {usePopularMovies} from "../../hooks/usePopularMovies";
+import {useMovies} from "../../hooks/useMovies";
 import {MovieList} from "../../components/MovieList";
 import {useMovieSearch} from "../../hooks/useMovieSearch";
+import { SearchBar } from "../../components/SearchBar";
+import { Pagination } from "../../components/Pagination";
+import { useGenres } from "../../hooks/useGenres";
+import { Filters } from "../../components/Filters";
 import {useState} from "react";
+
 
 export const HomePage = () => {
     const [query, setQuery] = useState('');
     const [searched, setSearched] = useState(false);
 
-    const {movies, loading, error, page, totalPages, setPage} = usePopularMovies();
+    const [selectedGenreId, setSelectedGenreId] = useState<number | undefined>(undefined);
+    const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined);
+    const [selectedRating, setSelectedRating] = useState<number | undefined>(undefined);
+
+    const { movies, loading, error, page, totalPages, setPage } = useMovies({
+        genreId: selectedGenreId,
+        year: selectedYear,
+        rating: selectedRating,
+    });
+
     const {foundMovies, loading: isSearching, error: searchError, search} = useMovieSearch();
+    const { genres } = useGenres();
 
     if (loading) return <p>Загрузка...</p>;
     if (error) return <p>Ошибка: {error}</p>;
@@ -21,24 +36,25 @@ export const HomePage = () => {
         await search(query);
     };
 
-    const maxVisible = 3;
-    let startPage = Math.max(1, page - Math.floor(maxVisible / 2));
-    let endPage = startPage + maxVisible - 1;
-
-    if (endPage > totalPages) {
-        endPage = totalPages;
-        startPage = Math.max(1, endPage - maxVisible + 1);
-    }
     return (
         <div>
             <h1>Movie Explorer</h1>
-            <input
-                type="text"
-                placeholder="Введите название фильма"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
+
+            <Filters
+                genres={genres}
+                selectedGenreId={selectedGenreId}
+                onGenreChange={setSelectedGenreId}
+                selectedYear={selectedYear}
+                onYearChange={setSelectedYear}
+                selectedRating={selectedRating}
+                onRatingChange={setSelectedRating}
             />
-            <button onClick={handleSearch}>Поиск</button>
+
+            <SearchBar
+                query={query}
+                onQueryChange={setQuery}
+                onSearch={handleSearch}
+            />
 
             {searched ? (
                 foundMovies.length > 0 ? (
@@ -50,25 +66,7 @@ export const HomePage = () => {
                 <>
                     <MovieList movies={movies}/>
                     {totalPages > 1 && (
-                        <div>
-                            <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-                                &lt;
-                            </button>
-
-                            {Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i).map(pageNum => (
-                                <button
-                                    key={pageNum}
-                                    onClick={() => setPage(pageNum)}
-                                    disabled={pageNum === page}
-                                >
-                                    {pageNum}
-                                </button>
-                            ))}
-
-                            <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
-                                &gt;
-                            </button>
-                        </div>
+                        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
                     )}
                 </>
             )}

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { getGenres, getPopularMovies } from '../../api/tmdb';
+import { getGenres, getFilteredMovies } from '../../api/tmdb';
 import type { Movie } from "../../types/Movie";
 import type { Genre } from "../../types/Genre";
 
-export const usePopularMovies = () => {
+export const useMovies = (filters?: { genreId?: number; year?: number; rating?: number }) => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -11,10 +11,19 @@ export const usePopularMovies = () => {
     const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
+        setPage(1)
+    }, [filters?.genreId, filters?.rating, filters?.year]);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const {results, totalPages: total} = await getPopularMovies(page);
+                const {results, totalPages: total} = await getFilteredMovies(
+                    page,
+                    filters?.genreId,
+                    filters?.year,
+                    filters?.rating
+                );
                 const genresResponse = await getGenres();
 
                 const moviesWithGenres = results.map((movie: Movie) => ({
@@ -36,7 +45,7 @@ export const usePopularMovies = () => {
         };
 
         fetchData().catch(console.error);
-    }, [page]);
+    }, [page, filters?.genreId, filters?.year, filters?.rating]);
 
 
     return { movies, loading, error, page, totalPages, setPage };
