@@ -1,0 +1,9 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cardWrapper {
+    flex: 0 0 calc(20% - 20px);
+}

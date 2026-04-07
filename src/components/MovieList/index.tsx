@@ -1,16 +1,19 @@
 import { MovieCard } from "../MovieCard";
 import type { Movie } from "../../types/Movie";
+import styles from './MovieList.module.css';
 
 interface MovieListProps {
     movies: Movie[];
 }
 
-export const MovieList = ({ movies}: MovieListProps) => {
+export const MovieList = ({ movies }: MovieListProps) => {
     return (
-        <ul>
+        <div className={styles.list}>
             {movies.map(movie => (
-                    <MovieCard movie={movie} key ={movie.id}/>
+                <div key={movie.id} className={styles.cardWrapper}>
+                        <MovieCard movie={movie} />
+                </div>
             ))}
-        </ul>
+        </div>
     );
 };

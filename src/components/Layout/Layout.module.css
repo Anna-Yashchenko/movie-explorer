@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=BJ+Cree:wght@400;500;600;700&family=Monsieur+La+Doulaise&display=swap');
+
+.nav {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.main {
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.nav a {
+    font-family: 'BJ Cree', sans-serif;
+    font-size: 35px;
+    text-decoration: none;
+    color: #5e0809;
+}

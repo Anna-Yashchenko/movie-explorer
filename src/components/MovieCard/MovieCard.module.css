@@ -1,0 +1,44 @@
+.card {
+    background: #5e0809;
+    border: 6px solid #5e0809;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.poster {
+    width: 100%;
+    height: auto;
+}
+
+.footer {
+    padding: 12px;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.favoriteButton {
+    background: none;
+    border: none;
+    font-size: 35px;
+    cursor: pointer;
+    color: #fffafa;
+    width: 36px;
+    text-align: center;
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
