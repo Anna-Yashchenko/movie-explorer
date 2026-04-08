@@ -1,0 +1,8 @@
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: normal;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}

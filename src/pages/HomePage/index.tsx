@@ -6,6 +6,7 @@ import { Pagination } from "../../components/Pagination";
 import { useGenres } from "../../hooks/useGenres";
 import { Filters } from "../../components/Filters";
 import {useState} from "react";
+import styles from './HomePage.module.css';
 
 
 export const HomePage = () => {
@@ -38,23 +39,24 @@ export const HomePage = () => {
 
     return (
         <div>
-            <h1>Movie Explorer</h1>
+            <div className={styles.controls}>
+                <SearchBar
+                    query={query}
+                    onQueryChange={setQuery}
+                    onSearch={handleSearch}
+                />
 
-            <Filters
-                genres={genres}
-                selectedGenreId={selectedGenreId}
-                onGenreChange={setSelectedGenreId}
-                selectedYear={selectedYear}
-                onYearChange={setSelectedYear}
-                selectedRating={selectedRating}
-                onRatingChange={setSelectedRating}
-            />
+                <Filters
+                    genres={genres}
+                    selectedGenreId={selectedGenreId}
+                    onGenreChange={setSelectedGenreId}
+                    selectedYear={selectedYear}
+                    onYearChange={setSelectedYear}
+                    selectedRating={selectedRating}
+                    onRatingChange={setSelectedRating}
+                />
 
-            <SearchBar
-                query={query}
-                onQueryChange={setQuery}
-                onSearch={handleSearch}
-            />
+            </div>
 
             {searched ? (
                 foundMovies.length > 0 ? (
