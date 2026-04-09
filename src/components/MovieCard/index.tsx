@@ -20,22 +20,26 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
 
     return (
         <div className={styles.card}>
-            <img className={styles.poster} src={posterUrl} alt={movie.title} />
+            <Link to={`/movie/${movie.id}`}>
+                <img className={styles.poster} src={posterUrl} alt={movie.title} />
+            </Link>
             <div className={styles.footer}>
                 <div className={styles.header}>
-                    <Link to={`/movie/${movie.id}`} >
-                        <h3>{movie.title}</h3>
+                    <Link to={`/movie/${movie.id}`} className={styles.titleLink}>
+                        <h3 className={styles.title}>{movie.title}</h3>
                     </Link>
                     <button
-                        className={styles.favoriteButton}
+                        className={`${styles.favoriteButton} ${isFavorite ? styles.favorited : ''}`}
                         onClick={() => toggleFavorite(movie)}
-                    >
-                        {isFavorite ? '★' : '☆'}
-                    </button>
+                    />
                 </div>
-                {year && <p>Год: {year}</p>}
-                <p>Рейтинг: {movie.vote_average}</p>
-                {genreNames && <p>Жанры: {genreNames}</p>}
+
+                <div className={styles.info}>
+                    {year && <span className={styles.year}>{year}</span>}
+                    <span className={styles.rating}>⭐ {movie.vote_average}</span>
+                </div>
+
+                {genreNames && <div className={styles.genres}>🎬 {genreNames}</div>}
             </div>
         </div>
     );

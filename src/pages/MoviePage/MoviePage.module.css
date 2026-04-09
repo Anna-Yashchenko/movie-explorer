@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+.container {
+    display: flex;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fffafa;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgb(75 15 17);
+    position: relative;
+    overflow: hidden;
+}
+
+.poster {
+    flex: 0 0 250px;
+    position: relative;
+    z-index: 1;
+}
+
+.poster img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 2rem;
+    color: #5e0809;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-style: italic;
+    color: #5e0809;
+    background-color: #fef7e0;
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 40px;
+    margin-bottom: 1.5rem;
+}
+
+.info {
+    font-family: 'Sofia Sans', sans-serif;
+    background-color: #fef7e0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0d6c5;
+}
+
+.infoItem:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 600;
+    color: #5e0809;
+}
+
+.value {
+    color: #333;
+}
+
+.link {
+    color: #5e0809;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+    color: #fdd061;
+}
+
+.overview h3 {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #5e0809;
+}
+
+.overview p {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 0.5rem;
+}
+
+.favoriteButton {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-image: url('/heart-empty.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.favorited {
+    background-image: url('/heart-filled.svg');
+}

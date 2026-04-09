@@ -1,3 +1,5 @@
+import styles from './Pagination.module.css';
+
 interface PaginationProps {
     page: number;
     totalPages: number;
@@ -16,14 +18,15 @@ export const Pagination = ({ page, totalPages, setPage }: PaginationProps) => {
     }
 
     return (
-        <div>
-            <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-                &lt;
+        <div className={styles.pagination}>
+            <button className={styles.pageButton} onClick={() => setPage(page - 1)} disabled={page === 1}>
+                ←
             </button>
 
             {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map(pageNum => (
                 <button
                     key={pageNum}
+                    className={`${styles.pageButton} ${pageNum === page ? styles.active : ''}`}
                     onClick={() => setPage(pageNum)}
                     disabled={pageNum === page}
                 >
@@ -31,8 +34,8 @@ export const Pagination = ({ page, totalPages, setPage }: PaginationProps) => {
                 </button>
             ))}
 
-            <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
-                &gt;
+            <button className={styles.pageButton} onClick={() => setPage(page + 1)} disabled={page === totalPages}>
+                →
             </button>
         </div>
     );

@@ -1,39 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
 .card {
     background: #5e0809;
     border: 6px solid #5e0809;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-}
-
-.poster {
-    width: 100%;
-    height: auto;
-}
-
-.footer {
-    padding: 12px;
-    text-align: center;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-}
-
-.favoriteButton {
-    background: none;
-    border: none;
-    font-size: 35px;
-    cursor: pointer;
-    color: #fffafa;
-    width: 36px;
-    text-align: center;
-}
-
-.card {
+    height: 100%;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -42,3 +15,88 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+.poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+.footer {
+    padding: 12px;
+    text-align: left;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.title {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fffafa;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+}
+
+.favoriteButton {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-image: url('/heart-empty.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.favorited {
+    background-image: url('/heart-filled.svg');
+}
+
+.info {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.year {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 16px;
+    color: #fdd061;
+    margin: 0;
+}
+
+.rating {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 16px;
+    color: #fffafa;
+    margin: 0;
+}
+
+.genres {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 18px;
+    color: #fdd061;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.3;
+}

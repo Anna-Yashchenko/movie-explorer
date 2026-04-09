@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
 .searchContainer {
     display: flex;
     gap: 12px;
@@ -14,6 +16,7 @@
     font-size: 16px;
     outline: none;
     width: 220px;
+    font-family: 'Sofia Sans', sans-serif;
 }
 
 .button {
