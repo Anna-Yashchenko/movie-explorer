@@ -36,7 +36,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
 
                 <div className={styles.info}>
                     {year && <span className={styles.year}>{year}</span>}
-                    <span className={styles.rating}>⭐ {movie.vote_average}</span>
+                    <span className={styles.rating}>⭐  {movie.vote_average.toFixed(1)}</span>
                 </div>
 
                 {genreNames && <div className={styles.genres}>🎬 {genreNames}</div>}

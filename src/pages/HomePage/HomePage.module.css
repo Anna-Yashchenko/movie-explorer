@@ -6,3 +6,33 @@
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
+
+.emptyState {
+    margin: 2rem auto 0;
+    max-width: 60%;
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #fef7e0;
+    border-radius: 16px;
+    border: 1px solid #fdd061;
+}
+
+.emptyImage {
+    width: 80px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.emptyTitle {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #5e0809;
+    margin-bottom: 0.5rem;
+}
+
+.emptyText {
+    font-family: 'Sofia Sans', sans-serif;
+    font-size: 1rem;
+    color: #333;
+}

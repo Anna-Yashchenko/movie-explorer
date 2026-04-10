@@ -62,7 +62,11 @@ export const HomePage = () => {
                 foundMovies.length > 0 ? (
                     <MovieList movies={foundMovies}/>
                 ) : (
-                    <p>Такого фильма нет</p>
+                    <div className={styles.emptyState}>
+                        <img src="/sad.png" alt="Not found" className={styles.emptyImage} />
+                        <p className={styles.emptyTitle}>Упс!</p>
+                        <p className={styles.emptyText}>Мы не нашли фильм «{query}»</p>
+                    </div>
                 )
             ) : (
                 <>
