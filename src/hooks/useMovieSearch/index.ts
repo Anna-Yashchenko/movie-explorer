@@ -1,23 +1,34 @@
-import {useState} from "react";
-import {searchMovies} from "../../api/tmdb";
-import type {Movie} from "../../types/Movie";
-
+import { useState } from 'react';
+import { searchMovies, getGenres } from '../../api/tmdb';
+import type { Movie } from '../../types/Movie';
+import type { Genre } from '../../types/Genre';
 
 export const useMovieSearch = () => {
-    const [foundMovies , setFoundMovies ] = useState<Movie[]>([]);
+    const [foundMovies, setFoundMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const search = async (query: string) => {
         setLoading(true);
         try {
-            const response = await searchMovies(query);
-            setFoundMovies (response);
+            const results = await searchMovies(query);
+            const genresResponse = await getGenres();
+
+            const moviesWithGenres = results.map((movie: Movie) => ({
+                ...movie,
+                genres: movie.genre_ids?.map((id: number) => {
+                    const genre = genresResponse.find((g: Genre) => g.id === id);
+                    return { id, name: genre?.name || 'неизвестно' };
+                }) || []
+            }));
+
+            setFoundMovies(moviesWithGenres);
         } catch (error) {
             setError(error instanceof Error ? error.message : 'Произошла ошибка');
         } finally {
             setLoading(false);
         }
     };
-    return { foundMovies , loading, error, search };
-}
+
+    return { foundMovies, loading, error, search };
+};

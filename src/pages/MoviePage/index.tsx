@@ -32,7 +32,7 @@ export const MoviePage = () => {
                         aria-label="В избранное"
                     />
                 </div>
-                {movie.tagline && <p className={styles.tagline}>«{movie.tagline}»</p>}
+                {movie.tagline && <p className={styles.tagline}>{movie.tagline}</p>}
 
                 <div className={styles.info}>
                     <div className={styles.infoItem}>
