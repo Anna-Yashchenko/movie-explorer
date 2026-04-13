@@ -1,8 +1,8 @@
-import type { Genre } from "../../types/Genre";
 import styles from './Filters.module.css';
+import type {Item}  from '../../types';
 
 interface FiltersProps {
-    genres: Genre[];
+    genres: Item[];
     selectedGenreId: number | undefined;
     onGenreChange: (id: number | undefined) => void;
     selectedYear: number | undefined;

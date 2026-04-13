@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import type { Movie } from "../../types/Movie";
+import { LS_KEYS } from '../../constants';
+import type {Movie} from "../../types";
 
 interface FavoritesStore {
     favorites: Movie[];
@@ -7,7 +8,7 @@ interface FavoritesStore {
 }
 
 const loadFavorites = (): Movie[] => {
-    const stored = localStorage.getItem('favorites');
+    const stored = localStorage.getItem(LS_KEYS.FAVORITES);
     return stored ? JSON.parse(stored) : [];
 };
 
@@ -20,7 +21,7 @@ export const useFavoritesStore = create<FavoritesStore>((set) => ({
             ? state.favorites.filter((fav) => fav.id !== movie.id)
             : [...state.favorites, movie];
 
-        localStorage.setItem('favorites', JSON.stringify(newFavorites));
+        localStorage.setItem(LS_KEYS.FAVORITES, JSON.stringify(newFavorites));
 
         return { favorites: newFavorites };
     }),

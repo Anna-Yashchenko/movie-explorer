@@ -1,3 +1,8 @@
+export interface Item {
+    id: number;
+    name: string;
+}
+
 export interface Movie {
     id: number;
     overview: string;
@@ -7,7 +12,7 @@ export interface Movie {
     title: string;
     vote_average: number;
     genre_ids: number[];
-    genres?: { id: number; name: string }[];
+    genres?: Item[];
 }
 
 export interface MovieDetails extends Movie {
@@ -16,10 +21,12 @@ export interface MovieDetails extends Movie {
     runtime: number;
     tagline: string;
     homepage: string;
-    genres: { id: number; name: string }[];
-    production_companies: {
-        id: number;
-        name: string;
-        logo_path: string | null;
-    }[];
+    genres: Item[];
+    production_companies: ProductionCompany[];
+}
+
+export interface ProductionCompany {
+    id: number;
+    name: string;
+    logo_path: string | null;
 }

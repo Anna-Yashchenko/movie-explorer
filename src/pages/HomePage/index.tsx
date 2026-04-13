@@ -1,17 +1,14 @@
+import { useState } from 'react';
 import { useMovies } from "../../hooks/useMovies";
 import { MovieList } from "../../components/MovieList";
-import { useMovieSearch } from "../../hooks/useMovieSearch";
 import { SearchBar } from "../../components/SearchBar";
 import { Pagination } from "../../components/Pagination";
 import { useGenres } from "../../hooks/useGenres";
 import { Filters } from "../../components/Filters";
-import { useState } from "react";
+import { useSearchLogic } from "../../hooks/useSearchLogic";
 import styles from './HomePage.module.css';
 
 export const HomePage = () => {
-    const [query, setQuery] = useState('');
-    const [searched, setSearched] = useState(false);
-
     const [selectedGenreId, setSelectedGenreId] = useState<number | undefined>(undefined);
     const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined);
     const [selectedRating, setSelectedRating] = useState<number | undefined>(undefined);
@@ -22,19 +19,22 @@ export const HomePage = () => {
         rating: selectedRating,
     });
 
-    const { foundMovies, loading: isSearching, error: searchError, search } = useMovieSearch();
     const { genres } = useGenres();
+    const {
+        query,
+        setQuery,
+        searched,
+        foundMovies,
+        isSearching,
+        searchError,
+        handleSearch,
+        resetSearch,
+    } = useSearchLogic();
 
     if (loading) return <p>Загрузка...</p>;
     if (error) return <p>Ошибка: {error}</p>;
     if (isSearching) return <p>Поиск фильма...</p>;
     if (searchError) return <p>Ошибка поиска: {searchError}</p>;
-
-    const handleSearch = async () => {
-        setSearched(true);
-        await search(query);
-        setQuery('');
-    };
 
     return (
         <div>
@@ -44,7 +44,6 @@ export const HomePage = () => {
                     onQueryChange={setQuery}
                     onSearch={handleSearch}
                 />
-
                 <Filters
                     genres={genres}
                     selectedGenreId={selectedGenreId}
@@ -66,12 +65,9 @@ export const HomePage = () => {
                         <p className={styles.emptyText}>Мы не нашли фильм</p>
                         <button
                             className={styles.resetButton}
-                            onClick={() => {
-                                setSearched(false);
-                                setQuery('');
-                            }}
+                            onClick={resetSearch}
                         >
-                            На главную
+                            К фильмам
                         </button>
                     </div>
                 )

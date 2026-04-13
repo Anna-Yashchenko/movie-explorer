@@ -11,13 +11,23 @@ export const Layout = () => {
                     to="/"
                     className={({ isActive }) => isActive ? styles.active : ''}
                 >
-                    Home
+                    {({ isActive }) => (
+                        <>
+                            Home
+                            {isActive && <img src="/popcorn.svg" alt="popcorn" className={styles.popcornIcon} />}
+                        </>
+                    )}
                 </NavLink>
                 <NavLink
                     to="/favorites"
                     className={({ isActive }) => isActive ? styles.active : ''}
                 >
-                    Favorites
+                    {({ isActive }) => (
+                        <>
+                            Favorites
+                            {isActive && <img src="/popcorn.svg" alt="popcorn" className={styles.popcornIcon} />}
+                        </>
+                    )}
                 </NavLink>
             </nav>
             <main className={styles.main}>
@@ -26,4 +36,3 @@ export const Layout = () => {
         </div>
     );
 };
-

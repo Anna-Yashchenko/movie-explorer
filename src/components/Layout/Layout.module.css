@@ -13,10 +13,10 @@
 }
 
 .nav {
-     padding-top: 20px;
-     display: flex;
-     justify-content: space-around;
- }
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
 
 .nav a.active {
     color: #000000;
@@ -26,15 +26,11 @@
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 6px;
-    text-decoration-color: #fdd061 ;
+    text-decoration-color: #fdd061;
 }
 
-.nav a.active::after {
-    content: '';
-    display: inline-block;
+.popcornIcon {
     width: 24px;
     height: 24px;
-    background-image: url('/popcorn.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
+    margin-left: 8px;
 }

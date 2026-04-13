@@ -16,7 +16,7 @@ export const SearchBar = ({ query, onQueryChange, onSearch }: SearchBarProps) =>
                 value={query}
                 onChange={(event) => onQueryChange(event.target.value)}
             />
-            <button className={styles.button} onClick={onSearch} aria-label="Поиск" ></button>
+            <button className={styles.button} onClick={onSearch} aria-label="Поиск" />
         </div>
     );
 };

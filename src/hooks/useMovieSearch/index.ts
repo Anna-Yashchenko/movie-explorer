@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { searchMovies, getGenres } from '../../api/tmdb';
-import type { Movie } from '../../types/Movie';
-import type { Genre } from '../../types/Genre';
+
+import type { Movie, Item} from '../../types'
 
 export const useMovieSearch = () => {
     const [foundMovies, setFoundMovies] = useState<Movie[]>([]);
@@ -17,7 +17,7 @@ export const useMovieSearch = () => {
             const moviesWithGenres = results.map((movie: Movie) => ({
                 ...movie,
                 genres: movie.genre_ids?.map((id: number) => {
-                    const genre = genresResponse.find((g: Genre) => g.id === id);
+                    const genre = genresResponse.find((g: Item) => g.id === id);
                     return { id, name: genre?.name || 'неизвестно' };
                 }) || []
             }));

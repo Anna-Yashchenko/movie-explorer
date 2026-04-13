@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {getGenres} from "../../api/tmdb";
-import type {Genre} from "../../types/Genre";
+
+import type {Item} from '../../types'
 
 
 export const useGenres = () => {
-    const [genres, setGenres] = useState<Genre[]>([]);
+    const [genres, setGenres] = useState<Item[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useMovieDetails } from '../../hooks/useMovieDetails';
 import { useFavoritesStore } from "../../store/useFavoritesStore";
+import { posterUrlByName } from '../../constants';
 import styles from './MoviePage.module.css';
 
 export const MoviePage = () => {
@@ -13,7 +14,7 @@ export const MoviePage = () => {
     if (!movie) return null;
 
     const posterUrl = movie.poster_path
-        ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
+        ?  posterUrlByName(movie.poster_path)
         : undefined;
 
     const isFavorite = favorites.some((fav) => fav.id === movie.id);

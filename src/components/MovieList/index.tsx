@@ -1,6 +1,6 @@
 import { MovieCard } from "../MovieCard";
-import type { Movie } from "../../types/Movie";
 import styles from './MovieList.module.css';
+import type {Movie} from "../../types";
 
 interface MovieListProps {
     movies: Movie[];
